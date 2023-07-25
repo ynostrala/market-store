@@ -27,7 +27,8 @@ class Carrito{
             // this.carrito.push(producto)
             this.carrito.push({...producto, cantidad: 1}) //le agrego al constructor de Producto, un nuevo parametro de cantidad.
         }
-
+        console.log(this.carrito);
+        this.listar()
     }
 
     quitar(){
@@ -38,6 +39,21 @@ class Carrito{
     //recorre todo el array del carrito con el carrito.find y compara el id.
     estaEnCarrito({id}){ //desestructuro el objeto y busco solamente el id.
         return this.carrito.find((producto) => producto.id === id)
+    }
+
+    listar(){
+        divCarrito.innerHTML = "";
+        for(const producto of this.carrito){
+            divCarrito.innerHTML += `
+                <div class="productoCarrito">
+                    <h2>${producto.nombre}</h2>
+                    <img src="img/${producto.imagen}" width="200"/>
+                    <p>$ ${producto.precio}</p>
+                    <p>Cantidad: ${producto.cantidad}</p>
+                    <p><a href="#" class="btnQuitar" data-id="${producto.id}">Eliminar</a></p>
+                </div> 
+            `;
+        }
     }
 }
 
@@ -80,7 +96,7 @@ function cargarProductos(){
             <div class="producto">
                 <h2>${producto.nombre}</h2>
                 <img src="img/${producto.imagen}" width="200"/>
-                <p>${producto.precio}</p>
+                <p>$ ${producto.precio}</p>
                 <p><a href="#" class="btnAgregar" data-id="${producto.id}">Agregar al carrito</a></p>
             </div> 
             `
