@@ -94,8 +94,15 @@ class BaseDeDatos{
     constructor(){
         this.productos = [];
         //cargamos los productos que apareceran siempre en la bd
-        this.agregarRegistro(1, "Arroz", 230, "Alimentos", "arroz.png");
-        this.agregarRegistro(2, "Galletitas", 350, "Alimentos", "galletitas.png");
+        this.agregarRegistro(1, "Arroz Doble Carolina", 430, "Alimentos", "arroz.png");
+        this.agregarRegistro(2, "Galletitas chips", 350, "Alimentos", "galletitas.png");
+        this.agregarRegistro(3, "Alfajor Marplatense", 300, "Alimentos", "alfajor.png");
+        this.agregarRegistro(4, "Harina 0000", 450, "Alimentos", "harina.png");
+        this.agregarRegistro(5, "Tallarines 1kg", 850, "Alimentos", "tallarines.png");
+        this.agregarRegistro(6, "Dentifrico", 550, "Perfumeria", "pasta-dientes.png");
+        this.agregarRegistro(7, "Jabon", 310, "Perfumeria", "jabon.png");
+        this.agregarRegistro(8, "Vaso templado", 1250, "Bazar", "vaso-templado.png");
+        this.agregarRegistro(8, "Taza y plato", 1900, "Bazar", "taza-cafe.png");
     }
 
     agregarRegistro(id, nombre, precio, categoria, imagen){
