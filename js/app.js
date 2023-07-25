@@ -54,7 +54,7 @@ class Carrito{
     //me muestra como resultado el producto (con el uso del find)
     //recorre todo el array del carrito con el carrito.find y compara el id.
     estaEnCarrito({id}){ //desestructuro el objeto y busco solamente el id.
-        return this.carrito.find((producto) => producto.id === id)
+        return this.carrito.find((producto) => producto.id === id);
     }
 
     listar(){
@@ -72,7 +72,6 @@ class Carrito{
                 </div> 
             `;
             this.total += producto.cantidad * producto.precio;
-            
             this.totalProductos += producto.cantidad;
         }
         
@@ -111,6 +110,10 @@ class BaseDeDatos{
     registroPorId(id){
         return this.productos.find((producto) => producto.id === id);
     }
+
+    registroPorNombre(palabra){
+        return this.productos.filter((producto) => producto.nombre.toLowerCase().includes(palabra));
+    }
 }
 
 const bd = new BaseDeDatos();
@@ -120,12 +123,14 @@ const divProductos = document.querySelector("#productos");
 const divCarrito = document.querySelector("#carrito");
 const spanCantidadProductos = document.querySelector("#cantidadProductos");
 const spanTotalCarrito = document.querySelector("#totalCarrito");
+const formBuscar = document.querySelector("#formBuscar");
+const inputBuscar = document.querySelector("#buscarProducto");
 
 
-cargarProductos();
+cargarProductos(bd.traerRegistros());
 
-function cargarProductos(){
-    const productos = bd.traerRegistros();
+function cargarProductos(productos){
+    divProductos.innerHTML = "";
     for(const producto of productos){
         divProductos.innerHTML += `
         <div class="producto">
@@ -149,9 +154,19 @@ function cargarProductos(){
     }
 }
 
-function quitarProductos(){
+//evento buscador
 
-}
+formBuscar.addEventListener("submit",(event)=>{
+    event.preventDefault();
+    const palabra = inputBuscar.value;
+    cargarProductos(bd.registroPorNombre(palabra.toLowerCase()));
+})
+
+inputBuscar.addEventListener("keyup",(event)=>{
+    event.preventDefault();
+    const palabra = inputBuscar.value;
+    cargarProductos(bd.registroPorNombre(palabra.toLowerCase()));
+})
 
 //objeto carrito
 const carrito = new Carrito();
