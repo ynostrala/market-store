@@ -44,12 +44,22 @@ function cargarProductos(){
     const productos = bd.traerRegistros();
     for(const producto of productos){
         divProductos.innerHTML += `
-        <div class="producto">
-            <h2>${producto.nombre}</h2>
-            <img src="img/${producto.imagen}" width="200"/>
-            <p>${producto.precio}</p>
-            <p><a href="#">Agregar al carrito</a></p>
-        </div> 
-        `
+            <div class="producto">
+                <h2>${producto.nombre}</h2>
+                <img src="img/${producto.imagen}" width="200"/>
+                <p>${producto.precio}</p>
+                <p><a href="#" class="btnAgregar" data-id="${producto.id}">Agregar al carrito</a></p>
+            </div> 
+            `
+    }
+    //botones de agregar al carrito
+    const botonesAgregar = document.querySelectorAll(".btnAgregar");
+    for(const boton of botonesAgregar){
+        boton.addEventListener("click", (event) =>{
+            event.preventDefault();
+            const id = Number(boton.dataset.id);
+            const producto = bd.registroPorId(id)
+            console.log("estas agregar el producto: " + producto.nombre)
+        })
     }
 }
