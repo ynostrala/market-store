@@ -11,9 +11,15 @@ class Producto{
 //clase para carrito
 class Carrito{
     constructor(){
-        this.carrito = [];
+        const carritoStorage = JSON.parse(localStorage.getItem("carrito"))
+        if(localStorage.getItem("carrito")){
+            this.carrito = carritoStorage;
+        }else{
+            this.carrito = [];
+        }
         this.total = 0;
         this.totalProductos = 0;
+        this.listar()
     }
 
     agregar(producto){
@@ -27,6 +33,7 @@ class Carrito{
             // this.carrito.push(producto)
             this.carrito.push({...producto, cantidad: 1}) //le agrego al constructor de Producto, un nuevo parametro de cantidad.
         }
+        localStorage.setItem("carrito", JSON.stringify(this.carrito))
         this.listar()
     }
 
@@ -37,6 +44,7 @@ class Carrito{
         }else{
             this.carrito.splice(indice, 1);
         }
+        localStorage.setItem("carrito", JSON.stringify(this.carrito))
         this.listar();
     }
 
@@ -85,7 +93,7 @@ class Carrito{
 //simula la base de datos con los productos del e-commerce
 class BaseDeDatos{
     constructor(){
-        this.productos = []
+        this.productos = [];
         //cargamos los productos que apareceran siempre en la bd
         this.agregarRegistro(1, "Arroz", 230, "Alimentos", "arroz.png");
         this.agregarRegistro(2, "Galletitas", 350, "Alimentos", "galletitas.png");
